@@ -27,7 +27,7 @@ def test_cursor():
         print(doc["text"])
 
 
-def load_data_from_mongo(x_field, limit):
+def load_data_from_mongo(db, collection, x_field, limit):
     X = []
     y = []
     collection = connect_to_mongo(db, collection)
@@ -38,7 +38,8 @@ def load_data_from_mongo(x_field, limit):
 
 
 def test_load_data_from_mongo():
-    X, y = load_data_from_mongo(x_field="text", limit=2)
+    X, y = load_data_from_mongo("communityTweets", "cs_conferences",
+                                x_field="text", limit=2)
     assert X
     print len(X), 'samples loaded'
     print X
