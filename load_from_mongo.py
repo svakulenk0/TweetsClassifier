@@ -32,7 +32,7 @@ def load_data_from_mongo(db, collection, x_field, limit):
     y = []
     collection = connect_to_mongo(db, collection)
     for doc in collection.find(limit=limit):
-        Xt.append(doc[x_field])
+        X.append(doc[x_field])
         # yt.append(yc)
         # print(doc["text"])
 
