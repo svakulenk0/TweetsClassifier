@@ -35,6 +35,7 @@ def load_data_from_mongo(db, collection, x_field, limit):
         X.append(doc[x_field])
         # yt.append(yc)
         # print(doc["text"])
+    return (X, y)
 
 
 def test_load_data_from_mongo():
