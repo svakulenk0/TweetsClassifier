@@ -24,7 +24,7 @@ def test_cursor():
     collection = connect_to_mongo("communityTweets", "cs_conferences")
     # show one of the documents
     for doc in collection.find(limit=1):
-        print(doc)
+        print(doc["text"])
 
 
 def test_count_tweets():
