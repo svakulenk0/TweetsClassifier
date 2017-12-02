@@ -33,4 +33,4 @@ def test_connect_to_mongo():
 
 
 if __name__ == '__main__':
-    load_corpus_from_mongo()
+    test_load_corpus_from_mongo()
