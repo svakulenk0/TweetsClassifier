@@ -27,6 +27,23 @@ def test_cursor():
         print(doc["text"])
 
 
+def load_data_from_mongo(x_field, limit):
+    X = []
+    y = []
+    collection = connect_to_mongo(db, collection)
+    for doc in collection.find(limit=limit):
+        Xt.append(doc[x_field])
+        # yt.append(yc)
+        # print(doc["text"])
+
+
+def test_load_data_from_mongo():
+    X, y = load_data_from_mongo(x_field="text", limit=2)
+    assert X
+    print len(X), 'samples loaded'
+    print X
+
+
 def test_count_tweets():
     count_tweets("communityTweets", "cs_conferences")
 
@@ -40,4 +57,4 @@ def test_connect_to_mongo():
 
 
 if __name__ == '__main__':
-    test_cursor()
+    test_load_data_from_mongo()
