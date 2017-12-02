@@ -20,6 +20,13 @@ def count_tweets(db, collection):
     print tweets.count()
 
 
+def test_cursor():
+    collection = connect_to_mongo("communityTweets", "cs_conferences")
+    # show one of the documents
+    for doc in collection.find(limit=1):
+        print(doc)
+
+
 def test_count_tweets():
     count_tweets("communityTweets", "cs_conferences")
 
@@ -33,4 +40,4 @@ def test_connect_to_mongo():
 
 
 if __name__ == '__main__':
-    test_count_tweets()
+    test_cursor()
