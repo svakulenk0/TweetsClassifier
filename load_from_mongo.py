@@ -14,14 +14,14 @@ def connect_to_mongo(db, collection):
     return client[db][collection]
 
 
-def load_corpus_from_mongo(db, collection):
+def count_tweets(db, collection):
     tweets = connect_to_mongo(db, collection)
     assert tweets.count()
     print tweets.count()
 
 
-def test_load_corpus_from_mongo():
-    load_corpus_from_mongo("communityTweets", "cs_conferences")
+def test_count_tweets():
+    count_tweets("communityTweets", "cs_conferences")
 
 
 def test_connect_to_mongo():
@@ -33,4 +33,4 @@ def test_connect_to_mongo():
 
 
 if __name__ == '__main__':
-    test_load_corpus_from_mongo()
+    test_count_tweets()
