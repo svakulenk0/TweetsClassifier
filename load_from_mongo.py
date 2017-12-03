@@ -71,7 +71,8 @@ def label_tweets(db, collection, labels, limit):
 
         label = detect_keyword(tokens, labels)
         # save label to MongoDB
-        collection.update({"_id": doc["_id"]}, {"$set": {"topic": label}})
+        if label:
+            collection.update({"_id": doc["_id"]}, {"$set": {"label": label}})
         # if not label:
         #     print(tokens)
 
