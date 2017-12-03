@@ -51,18 +51,14 @@ def load_data_from_mongo(db, collection, x_field, limit):
 
 def detect_keyword(tweet, labels):
     # remove punctuation
-    # translator = string.maketrans('', string.punctuation)
-    tweet.encode('utf-8').translate(None, string.punctuation)
-    # remove punctuation tokens
-    # documents = [[token for token in doc if not re.match(punctSeq, token)]
-    #              for doc in documents]
+    tweet = tweet.encode('utf-8').translate(None, string.punctuation)
+
     words = tweet.split()
     for topic, keywords in labels.items():
         for word in words:
             if word.lower().strip('#') in keywords:
                 # save topic label
                 return topic
-                # print(doc["text"])
 
 
 def label_tweets(db, collection, labels, limit):
