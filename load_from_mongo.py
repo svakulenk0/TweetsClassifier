@@ -101,7 +101,7 @@ def test_connect_to_mongo():
 
 
 if __name__ == '__main__':
-    # test_label_tweets()
-    test_count_tweets()
+    test_label_tweets()
+    # test_count_tweets()
 
 
