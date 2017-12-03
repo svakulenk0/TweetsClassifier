@@ -5,6 +5,7 @@ svakulenko
 
 Loading tweets from MongoDB
 '''
+import string
 
 from pymongo import MongoClient
 
@@ -49,11 +50,15 @@ def load_data_from_mongo(db, collection, x_field, limit):
 
 
 def detect_keyword(tweet, labels):
+    # remove punctuation
+    tweet.translate(None, string.punctuation)
+    # remove punctuation tokens
+    # documents = [[token for token in doc if not re.match(punctSeq, token)]
+    #              for doc in documents]
     words = tweet.split()
-
     for topic, keywords in labels.items():
         for word in words:
-            if word.lower() in keywords:
+            if word.lower().strip('#') in keywords:
                 # save topic label
                 return topic
                 # print(doc["text"])
