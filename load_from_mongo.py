@@ -18,7 +18,7 @@ LABELS = {'AI': ['aaai17', 'aaai2017', 'ijcai2017'],
           'WebScience': ['websci16', 'webscience16', 'wsdm2017', 'kdd2016','www2016ca', 'kddnews', 'cikm2016', 'www2017perth', 'www2017', 'icwe2017', 'cikm2017', 'icwsm', 'cultureanalytics2016'],
           'ML': ['nipsconference', 'nips', 'nips2016', 'nips2017', 'jmlr', 'icml2016', 'wiml2016', 'iclr2016', 'iclr2017', 'iclr', 'reworkdl']
          }
-
+NTWEETS = 500000
 
 def connect_to_mongo(db, collection):
     client = MongoClient('localhost', 27017)
@@ -77,7 +77,7 @@ def label_tweets(db, collection, labels, limit):
 
 
 def test_label_tweets():
-    label_tweets("communityTweets", "cs_conferences", LABELS, 1)
+    label_tweets("communityTweets", "cs_conferences", LABELS, NTWEETS)
 
 
 def test_load_data_from_mongo():
