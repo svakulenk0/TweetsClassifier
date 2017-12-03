@@ -70,12 +70,14 @@ def label_tweets(db, collection, labels, limit):
         tokens = tweet.split()
 
         label = detect_keyword(tokens, labels)
-        if not label:
-            print(tokens)
+        # save label to MongoDB
+        collection.update({"_id": doc["_id"]}, {"$set": {"topic": label}})
+        # if not label:
+        #     print(tokens)
 
 
 def test_label_tweets():
-    label_tweets("communityTweets", "cs_conferences", LABELS, 50000)
+    label_tweets("communityTweets", "cs_conferences", LABELS, 1)
 
 
 def test_load_data_from_mongo():
