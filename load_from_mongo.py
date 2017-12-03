@@ -57,7 +57,6 @@ def label_tweets(db, collection, labels):
         print tweet
         for topic, keywords in labels.items():
             for keyword in keywords:
-                print keyword
                 if keyword in tweet:
                     print topic
                     print(doc["text"])
