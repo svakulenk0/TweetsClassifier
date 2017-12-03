@@ -52,7 +52,7 @@ def load_data_from_mongo(db, collection, x_field, limit):
 def detect_keyword(tweet, labels):
     # remove punctuation
     # translator = string.maketrans('', string.punctuation)
-    tweet.translate(None, string.punctuation)
+    tweet.encode('utf-8').translate(None, string.punctuation)
     # remove punctuation tokens
     # documents = [[token for token in doc if not re.match(punctSeq, token)]
     #              for doc in documents]
