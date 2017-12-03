@@ -75,7 +75,7 @@ def label_tweets(db, collection, labels, limit):
 
 
 def test_label_tweets():
-    label_tweets("communityTweets", "cs_conferences", LABELS, 100)
+    label_tweets("communityTweets", "cs_conferences", LABELS, 500)
 
 
 def test_load_data_from_mongo():
