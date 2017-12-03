@@ -53,9 +53,11 @@ def label_tweets(db, collection, labels):
     collection = connect_to_mongo(db, collection)
     # show one of the documents
     for doc in collection.find(limit=1):
+        tweet = doc["text"].split()
+        print tweet
         for topic, keywords in enumerate(labels):
             for keyword in keywords:
-                if keyword in doc["text"].split():
+                if keyword in tweet:
                     print topic
                     print(doc["text"])
         # else:
