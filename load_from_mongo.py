@@ -55,7 +55,7 @@ def label_tweets(db, collection, labels):
     for doc in collection.find(limit=1):
         tweet = doc["text"].split()
         print tweet
-        for topic, keywords in enumerate(labels):
+        for topic, keyword in enumerate(labels):
             print keyword
             if keyword in tweet:
                 print topic
