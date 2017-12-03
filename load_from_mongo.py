@@ -9,6 +9,16 @@ Loading tweets from MongoDB
 from pymongo import MongoClient
 
 
+# mapping keywords to topic labels
+LABELS = {'AI': ['AAAI17', 'AAAI2017', 'IJCAI2017'],
+          'NLP': ['naacl2016', 'acl2016berlin', 'emnlp2016', 'LREC2016', 'eacl2017', 'acl2017', 'ijcnlp2017'],
+          'IR': ['sigir2016', 'recsys2016', 'ictir2016', 'sigir2017', 'ecir2017', 'ecir2016'],
+          'SemanticWeb': ['iswc2016', 'iswc2017', 'eswc'],
+          'WebScience': ['websci16', 'WSDM2017', 'kdd2016', 'cikm2016', 'www2017Perth', 'WWW2017', 'ICWE2017', 'cikm2017'],
+          'ML': ['nips2016', 'nips2017', 'jmlr', 'icml2016', 'WiML2016', 'iclr2016', 'iclr2017', 'iclr']
+         }
+
+
 def connect_to_mongo(db, collection):
     client = MongoClient('localhost', 27017)
     return client[db][collection]
@@ -38,6 +48,18 @@ def load_data_from_mongo(db, collection, x_field, limit):
     return (X, y)
 
 
+def label_tweets(db, collection, labels):
+    # print labels.values
+    collection = connect_to_mongo(db, collection)
+    # show one of the documents
+    for doc in collection.find(limit=1):
+        print(doc["text"])
+
+
+def test_label_tweets():
+    label_tweets("communityTweets", "cs_conferences", LABELS)
+
+
 def test_load_data_from_mongo():
     X, y = load_data_from_mongo("communityTweets", "cs_conferences", x_field="text", limit=2)
     assert X
@@ -58,4 +80,4 @@ def test_connect_to_mongo():
 
 
 if __name__ == '__main__':
-    test_load_data_from_mongo()
+    test_label_tweets()
