@@ -48,22 +48,28 @@ def load_data_from_mongo(db, collection, x_field, limit):
     return (X, y)
 
 
+def detect_keyword(tweet, labels):
+    words = tweet.split()
+
+    for topic, keywords in labels.items():
+        for word in words:
+            if word.lower() in keywords:
+                # save topic label
+                return topic
+                # print(doc["text"])
+
+
 def label_tweets(db, collection, labels, limit):
     # print labels.values
     collection = connect_to_mongo(db, collection)
-    # show one of the documents
+    label = None
+    # iterate over the tweets
     for doc in collection.find(limit=limit):
-        tweet = doc["text"].split()
+        tweet = doc["text"]
         # print tweet
-        for topic, keywords in labels.items():
-            for word in tweet:
-                if word.lower() in keywords:
-                    # save topic label
-                    pass
-                    # print topic
-                    # print(doc["text"])
-                else:
-                    print(doc["text"])
+        label = detect_keyword(labels, tweet)
+        if not label:
+            print(tweet)
 
 
 def test_label_tweets():
