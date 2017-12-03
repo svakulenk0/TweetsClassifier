@@ -15,7 +15,7 @@ LABELS = {'AI': ['aaai17', 'aaai2017', 'ijcai2017'],
           'NLP': ['naacl2016', 'acl2016berlin', 'acl2016', 'emnlp2016', 'lrec2016', 'eacl2017', 'acl2017', 'ijcnlp2017'],
           'IR': ['sigir2016', 'recsys2016', 'ictir2016', 'sigir2017', 'ecir2017', 'ecir2016'],
           'SemanticWeb': ['iswc2016', 'iswc2017', 'eswc'],
-          'WebScience': ['websci16', 'webscience16', 'wsdm2017', 'kdd2016','www2016ca', 'kddnews', 'cikm2016', 'www2017perth', 'www2017', 'icwe2017', 'cikm2017'],
+          'WebScience': ['websci16', 'webscience16', 'wsdm2017', 'kdd2016','www2016ca', 'kddnews', 'cikm2016', 'www2017perth', 'www2017', 'icwe2017', 'cikm2017', 'icwsm'],
           'ML': ['nips2016', 'nips2017', 'jmlr', 'icml2016', 'wiml2016', 'iclr2016', 'iclr2017', 'iclr', 'reworkdl']
          }
 
@@ -75,7 +75,7 @@ def label_tweets(db, collection, labels, limit):
 
 
 def test_label_tweets():
-    label_tweets("communityTweets", "cs_conferences", LABELS, 1000)
+    label_tweets("communityTweets", "cs_conferences", LABELS, 2000)
 
 
 def test_load_data_from_mongo():
@@ -98,4 +98,6 @@ def test_connect_to_mongo():
 
 
 if __name__ == '__main__':
+    test_count_tweets()
     test_label_tweets()
+
