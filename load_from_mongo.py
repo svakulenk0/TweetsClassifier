@@ -15,7 +15,7 @@ LABELS = {'AI': ['aaai17', 'aaai2017', 'ijcai2017'],
           'NLP': ['naacl2016', 'acl2016berlin', 'acl2016', 'emnlp2016', 'lrec2016', 'eacl2017', 'acl2017', 'ijcnlp2017'],
           'IR': ['sigir2016', 'recsys2016', 'ictir2016', 'sigir2017', 'ecir2017', 'ecir2016'],
           'SemanticWeb': ['iswc2016', 'iswc2017', 'eswc'],
-          'WebScience': ['websci16', 'wsdm2017', 'kdd2016', 'kdd_news', 'cikm2016', 'www2017perth', 'www2017', 'icwe2017', 'cikm2017'],
+          'WebScience': ['websci16', 'wsdm2017', 'kdd2016', 'kdd', 'cikm2016', 'www2017perth', 'www2017', 'icwe2017', 'cikm2017'],
           'ML': ['nips2016', 'nips2017', 'jmlr', 'icml2016', 'wiml2016', 'iclr2016', 'iclr2017', 'iclr']
          }
 
