@@ -62,8 +62,8 @@ def label_tweets(db, collection, labels, limit):
                     pass
                     # print topic
                     # print(doc["text"])
-        else:
-            print(doc["text"])
+                else:
+                    print(doc["text"])
 
 
 def test_label_tweets():
