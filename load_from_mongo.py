@@ -58,10 +58,12 @@ def label_tweets(db, collection, labels):
         for topic, keywords in labels.items():
             for keyword in keywords:
                 if keyword in tweet:
-                    print topic
-                    print(doc["text"])
-        # else:
-        #     print(doc["text"])
+                    # save topic label
+                    pass
+                    # print topic
+                    # print(doc["text"])
+        else:
+            print(doc["text"])
 
 
 def test_label_tweets():
