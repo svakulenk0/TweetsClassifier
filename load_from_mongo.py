@@ -48,11 +48,11 @@ def load_data_from_mongo(db, collection, x_field, limit):
     return (X, y)
 
 
-def label_tweets(db, collection, labels):
+def label_tweets(db, collection, labels, limit):
     # print labels.values
     collection = connect_to_mongo(db, collection)
     # show one of the documents
-    for doc in collection.find(limit=1):
+    for doc in collection.find(limit=limit):
         tweet = doc["text"].split()
         print tweet
         for topic, keywords in labels.items():
@@ -67,7 +67,7 @@ def label_tweets(db, collection, labels):
 
 
 def test_label_tweets():
-    label_tweets("communityTweets", "cs_conferences", LABELS)
+    label_tweets("communityTweets", "cs_conferences", LABELS, 10)
 
 
 def test_load_data_from_mongo():
