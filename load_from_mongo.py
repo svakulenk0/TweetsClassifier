@@ -50,10 +50,9 @@ def load_data_from_mongo(db, collection, x_field, limit):
 
 
 def detect_keyword(tokens, labels):
-    
     for topic, keywords in labels.items():
-        for word in words:
-            if word.lower().strip('#') in keywords:
+        for token in tokens:
+            if token.lower().strip('#') in keywords:
                 # save topic label
                 return topic
 
