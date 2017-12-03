@@ -49,11 +49,8 @@ def load_data_from_mongo(db, collection, x_field, limit):
     return (X, y)
 
 
-def detect_keyword(tweet, labels):
-    # remove punctuation
-    tweet = tweet.encode('utf-8').translate(None, string.punctuation)
-
-    words = tweet.split()
+def detect_keyword(tokens, labels):
+    
     for topic, keywords in labels.items():
         for word in words:
             if word.lower().strip('#') in keywords:
@@ -67,11 +64,15 @@ def label_tweets(db, collection, labels, limit):
     label = None
     # iterate over the tweets
     for doc in collection.find(limit=limit):
+        # the original text of the tweet post
         tweet = doc["text"]
-        # print tweet
-        label = detect_keyword(tweet, labels)
+        # remove punctuation
+        tweet = tweet.encode('utf-8').translate(None, string.punctuation)
+        tokens = tweet.split()
+
+        label = detect_keyword(tokens, labels)
         if not label:
-            print(tweet)
+            print(tokens)
 
 
 def test_label_tweets():
