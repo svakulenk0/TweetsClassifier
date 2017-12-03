@@ -67,7 +67,7 @@ def label_tweets(db, collection, labels, limit):
     for doc in collection.find(limit=limit):
         tweet = doc["text"]
         # print tweet
-        label = detect_keyword(labels, tweet)
+        label = detect_keyword(tweet, labels)
         if not label:
             print(tweet)
 
