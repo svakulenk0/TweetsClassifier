@@ -51,13 +51,20 @@ def load_data_from_mongo(db, collection, x_field, y_field, limit):
 
 def detect_keywords(tokens, labels):
     topic = None
-    for label, keywords in labels.items():
-        for index, token in enumerate(tokens):
-            if token.lower().strip('#') in keywords:
-                # save topic label (assume there is only one label per tweet)
-                topic = label
-                # remove token
+    # iterate over tokens in the tweet
+    for index, token in enumerate(tokens):
+        # remove urls, e.g. httpstcovM51N4tsWw
+        if token.lower()[:4] == 'http':
                 del tokens[index]
+        else:
+            # iterate over keywords
+            for label, keywords in labels.items():
+                if token.lower().strip('#') in keywords:
+                    # save topic label (assume there is only one label per tweet)
+                    topic = label
+                    # remove token
+                    del tokens[index]
+
     return topic, " ".join(tokens)
 
 
@@ -118,6 +125,6 @@ def test_connect_to_mongo():
 
 if __name__ == '__main__':
     # test_detect_keywords()
-    # test_label_tweets()
+    test_label_tweets()
     # test_count_tweets()
     test_load_data_from_mongo()
