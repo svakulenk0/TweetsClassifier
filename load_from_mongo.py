@@ -49,18 +49,30 @@ def load_data_from_mongo(db, collection, x_field, y_field, limit):
     return (X, y)
 
 
-def detect_keyword(tokens, labels):
-    for topic, keywords in labels.items():
+def detect_keywords(tokens, labels):
+    topic = None
+    for label, keywords in labels.items():
         for token in tokens:
             if token.lower().strip('#') in keywords:
-                # save topic label
-                return topic
+                # save topic label (assume there is only one label per tweet)
+                topic = label
+    return topic
+
+
+def test_detect_keywords():
+    # the original text of the tweet post
+    tweet = "@sigir2016 is a great place to be"
+    # remove punctuation
+    tweet = tweet.encode('utf-8').translate(None, string.punctuation)
+    tokens = tweet.split()
+
+    assert detect_keywords(tokens, LABELS) == 'IR'
+    print detect_keywords(tokens, LABELS)
 
 
 def label_tweets(db, collection, labels, limit):
     # print labels.values
     collection = connect_to_mongo(db, collection)
-    label = None
     # iterate over the tweets
     for doc in collection.find(limit=limit):
         # the original text of the tweet post
@@ -69,7 +81,7 @@ def label_tweets(db, collection, labels, limit):
         tweet = tweet.encode('utf-8').translate(None, string.punctuation)
         tokens = tweet.split()
 
-        label = detect_keyword(tokens, labels)
+        label = detect_keywords(tokens, labels)
         # save label to MongoDB
         if label:
             collection.update({"_id": doc["_id"]}, {"$set": {"label": label}})
@@ -78,7 +90,7 @@ def label_tweets(db, collection, labels, limit):
 
 
 def test_label_tweets():
-    label_tweets("communityTweets", "cs_conferences", LABELS, NTWEETS)
+    label_tweets("communityTweets", "cs_conferences", LABELS, 2)
 
 
 def test_load_data_from_mongo():
@@ -87,6 +99,7 @@ def test_load_data_from_mongo():
     assert X
     print len(X), 'samples loaded'
     print X
+    print y
 
 
 def test_count_tweets():
@@ -102,6 +115,7 @@ def test_connect_to_mongo():
 
 
 if __name__ == '__main__':
+    test_detect_keywords()
     # test_label_tweets()
     # test_count_tweets()
-    test_load_data_from_mongo()
+    # test_load_data_from_mongo()
