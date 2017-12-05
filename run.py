@@ -6,7 +6,7 @@ svakulenko
 Load tweets from MongoDB and train Tweet2Vec NN model
 '''
 from load_from_mongo import load_data_from_mongo
-from train import split_dataset
+from train import split_dataset, train
 
 
 X, y = load_data_from_mongo("communityTweets", "cs_conferences",
