@@ -51,26 +51,35 @@ def load_data_from_mongo(db, collection, x_field, y_field, limit):
 
 def detect_keywords(tokens, labels):
     topic = None
+    new_tokens = []
     # iterate over tokens in the tweet
     for index, token in enumerate(tokens):
-        # remove urls, e.g. httpstcovM51N4tsWw
-        if token.lower()[:4] == 'http':
-            del tokens[index]
-        else:
-            # iterate over keywords
-            for label, keywords in labels.items():
-                if token.lower().strip('#') in keywords:
-                    # save topic label (assume there is only one label per tweet)
-                    topic = label
-                    # remove token
-                    del tokens[index]
 
-    return topic, " ".join(tokens)
+        token = token.lower()
+
+        # remove (skip) urls, e.g. httpstcovM51N4tsWw
+        if token[:4] == 'http':
+            continue
+
+        keyword = False
+        # iterate over keywords
+        for label, keywords in labels.items():
+            if token.strip('#') in keywords:
+                # save topic label (assume there is only one label per tweet)
+                topic = label
+                keyword = True
+                # remove (skip) token
+                break
+        
+        if not keyword:
+            new_tokens.append(token)
+
+    return topic, " ".join(new_tokens)
 
 
 def test_detect_keywords():
     # the original text of the tweet post
-    tweet = "Why squeeze into a GloVe when you can spread LoVe httpstcovM51N4tsWw"
+    tweet = "Machine learning meets fashion @ the @kdd_news. Accepting  submissions. @stitchfix_algo https://t.co/cddDPdeFXZ https://t.co/i0R3ONewrg"
     # remove punctuation
     tweet = tweet.encode('utf-8').translate(None, string.punctuation)
     tokens = tweet.split()
@@ -127,4 +136,4 @@ if __name__ == '__main__':
     # test_detect_keywords()
     test_label_tweets()
     test_count_tweets()
-    # test_load_data_from_mongo()
+    test_load_data_from_mongo()
