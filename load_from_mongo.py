@@ -97,7 +97,7 @@ def test_label_tweets():
 
 def test_load_data_from_mongo():
     X, y = load_data_from_mongo("communityTweets", "cs_conferences",
-                                x_field="clean_text", y_field="label", limit=2)
+                                x_field="clean_text", y_field="label", limit=20)
     assert X
     print len(X), 'samples loaded'
     print X
