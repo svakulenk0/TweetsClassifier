@@ -118,6 +118,6 @@ def test_connect_to_mongo():
 
 if __name__ == '__main__':
     # test_detect_keywords()
-    test_label_tweets()
-    test_count_tweets()
-    # test_load_data_from_mongo()
+    # test_label_tweets()
+    # test_count_tweets()
+    test_load_data_from_mongo()
