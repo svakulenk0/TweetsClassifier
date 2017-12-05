@@ -38,13 +38,13 @@ def test_cursor():
         print(doc["text"])
 
 
-def load_data_from_mongo(db, collection, x_field, limit):
+def load_data_from_mongo(db, collection, x_field, y_field, limit):
     X = []
     y = []
     collection = connect_to_mongo(db, collection)
-    for doc in collection.find(limit=limit):
+    for doc in collection.find({y_field: {'$exists': True}}, limit=limit):
         X.append(doc[x_field])
-        # yt.append(yc)
+        y.append(doc[y_field])
         # print(doc["text"])
     return (X, y)
 
@@ -82,7 +82,8 @@ def test_label_tweets():
 
 
 def test_load_data_from_mongo():
-    X, y = load_data_from_mongo("communityTweets", "cs_conferences", x_field="text", limit=2)
+    X, y = load_data_from_mongo("communityTweets", "cs_conferences",
+                                x_field="text", y_field="label", limit=2)
     assert X
     print len(X), 'samples loaded'
     print X
@@ -101,7 +102,6 @@ def test_connect_to_mongo():
 
 
 if __name__ == '__main__':
-    test_label_tweets()
+    # test_label_tweets()
     # test_count_tweets()
-
-
+    test_load_data_from_mongo()
