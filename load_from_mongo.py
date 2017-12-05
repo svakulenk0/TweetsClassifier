@@ -52,11 +52,13 @@ def load_data_from_mongo(db, collection, x_field, y_field, limit):
 def detect_keywords(tokens, labels):
     topic = None
     for label, keywords in labels.items():
-        for token in tokens:
+        for index, token in enumerate(tokens):
             if token.lower().strip('#') in keywords:
                 # save topic label (assume there is only one label per tweet)
                 topic = label
-    return topic
+                # remove token
+                del tokens[index]
+    return topic, " ".join(tokens)
 
 
 def test_detect_keywords():
@@ -81,10 +83,10 @@ def label_tweets(db, collection, labels, limit):
         tweet = tweet.encode('utf-8').translate(None, string.punctuation)
         tokens = tweet.split()
 
-        label = detect_keywords(tokens, labels)
-        # save label to MongoDB
-        if label:
-            collection.update({"_id": doc["_id"]}, {"$set": {"label": label}})
+        label, clean_text = detect_keywords(tokens, labels)
+        # save label and cleaned text string into MongoDB
+        collection.update({"_id": doc["_id"]}, {"$set": {"label": label},
+                                                        {"clean_text": clean_text}})
         # if not label:
         #     print(tokens)
 
@@ -95,7 +97,7 @@ def test_label_tweets():
 
 def test_load_data_from_mongo():
     X, y = load_data_from_mongo("communityTweets", "cs_conferences",
-                                x_field="text", y_field="label", limit=2)
+                                x_field="clean_text", y_field="label", limit=2)
     assert X
     print len(X), 'samples loaded'
     print X
@@ -115,7 +117,7 @@ def test_connect_to_mongo():
 
 
 if __name__ == '__main__':
-    test_detect_keywords()
-    # test_label_tweets()
-    # test_count_tweets()
+    # test_detect_keywords()
+    test_label_tweets()
+    test_count_tweets()
     # test_load_data_from_mongo()
