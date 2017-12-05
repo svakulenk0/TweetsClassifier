@@ -169,12 +169,12 @@ def test_split_dataset():
     assert True in y_test and False in y_test
 
 
-def train(train_data, val_data, save_path,
+def train(Xt, yt, Xv, yv, save_path,
           num_epochs=NUM_EPOCHS, lr=LEARNING_RATE, mu=MOMENTUM,
           reg=REGULARIZATION, sch=SCHEDULE):
     '''
-    train_data    X,y arrays with training data
-    val_data      X,y arrays with validation data split
+    Xt, yt        X,y arrays with training data
+    Xv, yv        X,y arrays with validation data split
     save_path     path to store the trained model
     '''
 
