@@ -55,7 +55,7 @@ def detect_keywords(tokens, labels):
     for index, token in enumerate(tokens):
         # remove urls, e.g. httpstcovM51N4tsWw
         if token.lower()[:4] == 'http':
-                del tokens[index]
+            del tokens[index]
         else:
             # iterate over keywords
             for label, keywords in labels.items():
@@ -70,12 +70,12 @@ def detect_keywords(tokens, labels):
 
 def test_detect_keywords():
     # the original text of the tweet post
-    tweet = "@sigir2016 is a great place to be"
+    tweet = "Why squeeze into a GloVe when you can spread LoVe httpstcovM51N4tsWw"
     # remove punctuation
     tweet = tweet.encode('utf-8').translate(None, string.punctuation)
     tokens = tweet.split()
 
-    assert detect_keywords(tokens, LABELS) == 'IR'
+    # assert detect_keywords(tokens, LABELS) == 'IR'
     print detect_keywords(tokens, LABELS)
 
 
@@ -92,8 +92,8 @@ def label_tweets(db, collection, labels, limit):
 
         label, clean_text = detect_keywords(tokens, labels)
         # save label and cleaned text string into MongoDB
-        collection.update({"_id": doc["_id"]}, {"$set": {"label": label,
-                                                         "clean_text": clean_text}})
+        collection.update({"_id": doc["_id"]},
+                          {"$set": {"label": label, "clean_text": clean_text}}, upsert=False)
         # if not label:
         #     print(tokens)
 
@@ -126,5 +126,5 @@ def test_connect_to_mongo():
 if __name__ == '__main__':
     # test_detect_keywords()
     test_label_tweets()
-    # test_count_tweets()
-    test_load_data_from_mongo()
+    test_count_tweets()
+    # test_load_data_from_mongo()
