@@ -8,6 +8,7 @@ https://github.com/bdhingra/tweet2vec
 '''
 from collections import Counter
 import time
+import cPickle as pkl
 
 import numpy as np
 from sklearn.model_selection import train_test_split
