@@ -85,8 +85,8 @@ def label_tweets(db, collection, labels, limit):
 
         label, clean_text = detect_keywords(tokens, labels)
         # save label and cleaned text string into MongoDB
-        collection.update({"_id": doc["_id"]}, {"$set": {"label": label},
-                                                        {"clean_text": clean_text}})
+        collection.update({"_id": doc["_id"]}, {"$set": {"label": label,
+                                                         "clean_text": clean_text}})
         # if not label:
         #     print(tokens)
 
