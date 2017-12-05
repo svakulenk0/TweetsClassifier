@@ -12,4 +12,4 @@ from train import split_dataset, train
 X, y = load_data_from_mongo("communityTweets", "cs_conferences",
                             x_field="clean_text", y_field="label", limit=20)
 (X_train, y_train), (X_validate, y_validate), (X_test, y_test) = split_dataset(X, y)
-train(X_train, y_train, X_validate, y_validate, save_path="./model/")
+train(X_train, y_train, X_validate, y_validate, save_path="./model")
