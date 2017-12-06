@@ -25,6 +25,10 @@ REGULARIZATION = 0.0001
 SCHEDULE = True  # use schedule
 GRAD_CLIP = 5.  # gradient clipping for regularization
 
+# thresholds
+T1 = 0.01  # in learning schedule: if change < T1
+T2 = 0.0001  # stopping criterion: if sum(deltas) / len(deltas) < T2
+
 # logging and model back ups
 DISPF = 5  # Display frequency
 SAVEF = 1000  # Save frequency
