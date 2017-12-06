@@ -130,6 +130,11 @@ def prepare_data(seqs_x, chardict, n_chars=1000):
     """
     Prepare the data for training - add masks
     """
+    seqsX = []
+    for text in seqs_x:
+        seqsX.append([chardict[c] for c in list(text)])
+    seqs_x = seqsX
+
     lengths_x = [len(s) for s in seqs_x]
     n_samples = len(seqs_x)
     x = np.zeros((n_samples, MAX_LENGTH)).astype('int32')
