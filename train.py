@@ -12,12 +12,11 @@ import cPickle as pkl
 
 import numpy as np
 from sklearn.model_selection import train_test_split
-
 import lasagne
 import theano
 import theano.tensor as T
 
-from tweet2vec import init_params
+from tweet2vec import init_params, tweet2vec
 from settings import *
 
 
@@ -153,26 +152,14 @@ def split_dataset(X, y, train_size=0.6, test_size=0.2):
     return [(X_train, y_train), (X_validate, y_validate), (X_test, y_test)]
 
 
-def test_split_dataset():
-    '''
-    Generate sample dataset with 100 samples and split it into 3 sets
-    '''
-    X = [1, 2, 3, 4, 5, 2, 3, 4, 3, 5, 5, 2, 3, 4, 5]
-    y = [True, False, True, True, True, False, True, False, True, False, True, False, True, False, True]
-    (X_train, y_train), (X_validate, y_validate), (X_test, y_test) = split_dataset(X, y)
-    assert True in y_train and False in y_train
-    assert True in y_validate and False in y_validate
-    assert True in y_test and False in y_test
+def classify(tweet, t_mask, params, n_classes, n_chars):
+    # tweet embedding
+    emb_layer = tweet2vec(tweet, t_mask, params, n_chars)
+    
+    # Dense layer for classes
+    l_dense = lasagne.layers.DenseLayer(emb_layer, n_classes, W=params['W_cl'], b=params['b_cl'], nonlinearity=lasagne.nonlinearities.softmax)
 
-
-def test_train():
-    '''
-    Generate sample dataset and split it into 3 sets
-    '''
-    X = ["test" for i in range(20)]
-    y = [True for i in range(20)]
-    (X_train, y_train), (X_validate, y_validate), (X_test, y_test) = split_dataset(X, y)
-    train(X_train, y_train, X_validate, y_validate, save_path="./model")
+    return lasagne.layers.get_output(l_dense), l_dense, lasagne.layers.get_output(emb_layer)
 
 
 def train(Xt, yt, Xv, yv, save_path,
@@ -337,7 +324,28 @@ def train(Xt, yt, Xv, yv, save_path,
     print("Finish. Total training time = {}".format(time.time()-start))
 
 
+def test_split_dataset():
+    '''
+    Generate sample dataset with 100 samples and split it into 3 sets
+    '''
+    X = [1, 2, 3, 4, 5, 2, 3, 4, 3, 5, 5, 2, 3, 4, 5]
+    y = [True, False, True, True, True, False, True, False, True, False, True, False, True, False, True]
+    (X_train, y_train), (X_validate, y_validate), (X_test, y_test) = split_dataset(X, y)
+    assert True in y_train and False in y_train
+    assert True in y_validate and False in y_validate
+    assert True in y_test and False in y_test
+
+
+def test_train():
+    '''
+    Generate sample dataset and split it into 3 sets
+    '''
+    X = ["test" for i in range(20)]
+    y = ["true" for i in range(20)]
+    (X_train, y_train), (X_validate, y_validate), (X_test, y_test) = split_dataset(X, y)
+    train(X_train, y_train, X_validate, y_validate, save_path="./model")
+
+
 if __name__ == '__main__':
     # test_split_dataset()
     test_train()
-
