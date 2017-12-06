@@ -17,6 +17,7 @@ import theano
 import theano.tensor as T
 
 from tweet2vec import init_params, tweet2vec
+from evaluate import precision
 from settings import *
 
 

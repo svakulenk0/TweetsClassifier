@@ -6,6 +6,8 @@ svakulenko
 Standard evaluation metrics for a classifier performance based on Tweet2Vec implementation by bdhingra
 https://github.com/bdhingra/tweet2vec
 '''
+import numpy as np
+
 
 def precision(p, t, k):
     '''
