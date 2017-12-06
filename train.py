@@ -176,7 +176,7 @@ def train(Xt, yt, Xv, yv, save_path,
     Xv, yv        X,y arrays with validation data split
     save_path     path to store the trained model
     '''
-
+    global T1
     print("Initializing model...")
     
     # Build dictionaries from training data
@@ -250,7 +250,7 @@ def train(Xt, yt, Xv, yv, save_path,
                 train = theano.function(inps, cost, updates=updates)
                 T1 = T1/2
 
-        # stopping criterion
+        # stopping criterion: runs for minimum 7 epochs
         if len(valcosts) > 6:
             deltas = []
             for i in range(5):
