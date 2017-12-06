@@ -6,7 +6,7 @@ svakulenko
 Training a character-level NN classifier based on Tweet2Vec implementation by bdhingra
 https://github.com/bdhingra/tweet2vec
 '''
-from collections import Counter
+from collections import Counter, OrderedDict
 import time
 import cPickle as pkl
 
