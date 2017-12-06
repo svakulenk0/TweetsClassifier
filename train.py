@@ -17,13 +17,8 @@ import lasagne
 import theano
 import theano.tensor as T
 
-
-NUM_EPOCHS = 30 # Number of epochs
-N_BATCH = 64  # Batch size
-LEARNING_RATE = 0.01
-MOMENTUM = 0.9
-REGULARIZATION = 0.0001
-SCHEDULE = True  # use schedule
+from tweet2vec import init_params
+from settings import *
 
 
 def build_dictionary(text):
@@ -205,7 +200,7 @@ def train(Xt, yt, Xv, yv, save_path,
     n_classes = len(labeldict.keys())
 
     # classification params
-    params['W_cl'] = theano.shared(np.random.normal(loc=0., scale=SCALE, size=(WDIM,n_classes)).astype('float32'), name='W_cl')
+    params['W_cl'] = theano.shared(np.random.normal(loc=0., scale=SCALE, size=(LDIM, n_classes)).astype('float32'), name='W_cl')
     params['b_cl'] = theano.shared(np.zeros((n_classes)).astype('float32'), name='b_cl')
 
     # iterators
