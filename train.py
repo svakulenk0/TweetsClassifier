@@ -170,6 +170,16 @@ def test_split_dataset():
     assert True in y_test and False in y_test
 
 
+def test_train():
+    '''
+    Generate sample dataset and split it into 3 sets
+    '''
+    X = ["test" for i in range(20)]
+    y = [True for i in range(20)]
+    (X_train, y_train), (X_validate, y_validate), (X_test, y_test) = split_dataset(X, y)
+    train(X_train, y_train, X_validate, y_validate, save_path="./model")
+
+
 def train(Xt, yt, Xv, yv, save_path,
           num_epochs=NUM_EPOCHS, lr=LEARNING_RATE, mu=MOMENTUM,
           reg=REGULARIZATION, sch=SCHEDULE):
@@ -333,5 +343,6 @@ def train(Xt, yt, Xv, yv, save_path,
 
 
 if __name__ == '__main__':
-    test_split_dataset()
-    # train()
+    # test_split_dataset()
+    test_train()
+
