@@ -8,10 +8,11 @@ based on Tweet2Vec implementation by bdhingra https://github.com/bdhingra/tweet2
 '''
 
 # network size
-CHAR_DIM = 6  # number of unique characters in the input layer
+CHAR_DIM = 128  # number of unique characters in the input layer
+# 128 US-ASCII + 1,920 UTF-8
 HDIM = 500  # size of the hidden layer
-LDIM = 1  # number of the unique output labels (categories)
-MAX_LENGTH = 4  # max sequence of characters length for the input layer
+LDIM = 6  # number of the unique output labels (categories)
+MAX_LENGTH = 280  # max sequence of characters length for the input layer
 # Twitter limits 140/280
 
 # training parameters

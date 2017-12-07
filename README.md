@@ -13,7 +13,9 @@ Train a classifier to recommend relevant tweets.
 
 ## Run
 
-* Test: THEANO_FLAGS='floatX=float32' python train.py
+* Unit test: THEANO_FLAGS='floatX=float32' python train.py
+
+* Train: THEANO_FLAGS='floatX=float32' python run.py
 
 
 ## Requirements
