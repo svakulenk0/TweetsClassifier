@@ -115,6 +115,7 @@ def test_load_data_from_mongo():
     X, y = load_data_from_mongo("communityTweets", "cs_conferences",
                                 x_field="clean_text", y_field="label", limit=20)
     assert X
+    assert y
     print len(X), 'samples loaded'
     print X
     print y
