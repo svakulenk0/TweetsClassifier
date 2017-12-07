@@ -42,7 +42,7 @@ def load_data_from_mongo(db, collection, x_field, y_field, limit):
     X = []
     y = []
     collection = connect_to_mongo(db, collection)
-    for doc in collection.find({y_field: {'$exists': True}}, limit=limit):
+    for doc in collection.find({y_field: {'$ne': None}}, limit=limit):
         X.append(doc[x_field])
         y.append(doc[y_field])
         # print(doc["text"])
