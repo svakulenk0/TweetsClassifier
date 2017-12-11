@@ -58,6 +58,17 @@ def load_data_from_mongo(db, collection, x_field, y_field, limit):
     return (X, y)
 
 
+def load_data_from_mongo_balanced(db, collection, x_field, y_field, limit):
+    X = []
+    y = []
+    collection = connect_to_mongo(db, collection)
+    for topic in LABELS.keys():
+        for doc in collection.find({y_field: topic}, limit=limit):
+            X.append(doc[x_field])
+            y.append(doc[y_field])
+    return (X, y)
+
+
 def detect_keywords(tokens, labels):
     topic = None
     new_tokens = []
