@@ -163,7 +163,7 @@ def classify(tweet, t_mask, params, n_classes, n_chars):
     return lasagne.layers.get_output(l_dense), l_dense, lasagne.layers.get_output(emb_layer)
 
 
-def train_model(Xt, yt, Xv, yv, save_path,
+def train_model(Xt, yt, Xv, yv, save_path=MODEL_PATH,
           num_epochs=NUM_EPOCHS, lr=LEARNING_RATE, mu=MOMENTUM,
           reg=REGULARIZATION, sch=SCHEDULE):
     '''
