@@ -31,7 +31,7 @@ def count_tweets(db, collection):
     print tweets.count()
 
 
-def count_topic_samples(db, collection):
+def count_topic_samples(db, collection, y_field):
     collection = connect_to_mongo(db, collection)
     for topic in LABELS.keys():
         print topic
@@ -133,7 +133,7 @@ def test_count_tweets():
 
 
 def test_count_topic_samples():
-    count_topic_samples("communityTweets", "cs_conferences")
+    count_topic_samples("communityTweets", "cs_conferences", y_field="label")
 
 
 def test_connect_to_mongo():
