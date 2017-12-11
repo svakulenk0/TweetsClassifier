@@ -99,8 +99,9 @@ def infer(Xt, yt, model_path=MODEL_PATH):
 
 
 def test_infer():
-    X = ["test yes?", "or no?" , 'or no?']
-    y = ["yes", "no", "no"]
+    # test generalization performance of the model
+    X = ["hot", "hot and ", "ho", "cold"]
+    y = ["hot", "hot", "hot", "cold"]
     infer(X, y)
 
 

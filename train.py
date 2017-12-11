@@ -346,15 +346,14 @@ def test_split_dataset():
 
 def test_train_model():
     '''
-    Generate sample dataset for binary classification test and split it into 3 sets
+    Sample dataset for binary classification test
     '''
-    # sample positive examples
-    X = ["test yes?"] * N_BATCH
-    y = ["yes"]  * N_BATCH
-    # sample negative examples
-    X.extend(["or no?"] * N_BATCH)
-    y.extend(["no"]  * N_BATCH)
-    (X_train, y_train), (X_validate, y_validate), (X_test, y_test) = split_dataset(X, y)
+    X_train = ["hot and warm", "hot and ", "hot ", "cold and freezing", "cold and ", "cold anyways "]
+    y_train = ["hot", "hot", "hot", "cold", "cold", "cold"]
+
+    X_validate = ["hot and nice", "cold and nice"]
+    y_validate = ["hot", "cold"]
+    
     train_model(X_train, y_train, X_validate, y_validate, save_path=MODEL_PATH)
 
 
