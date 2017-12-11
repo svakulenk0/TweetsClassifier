@@ -15,9 +15,11 @@ def precision(p, t, k):
     '''
     n = p.shape[0]
     res = np.zeros(n)
+    print p, t
+    # for each prediction
     for idx in range(n):
         index = p[idx, :k]
         for i in index:
-            if i in t[idx]:
+            if i == t[idx]:
                 res[idx] += 1
     return np.sum(res) / (n * k)
