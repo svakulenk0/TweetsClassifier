@@ -31,6 +31,13 @@ def count_tweets(db, collection):
     print tweets.count()
 
 
+def count_topic_samples(db, collection):
+    collection = connect_to_mongo(db, collection)
+    for topic in LABELS.keys():
+        print topic
+        print collection.count({y_field: topic})
+
+
 def test_cursor():
     collection = connect_to_mongo("communityTweets", "cs_conferences")
     # show one of the documents
@@ -125,6 +132,10 @@ def test_count_tweets():
     count_tweets("communityTweets", "cs_conferences")
 
 
+def test_count_topic_samples(db, collection):
+    count_topic_samples("communityTweets", "cs_conferences")
+
+
 def test_connect_to_mongo():
     posts = connect_to_mongo("test", "test_connect_to_mongo")
     # insert sample doc
@@ -135,6 +146,7 @@ def test_connect_to_mongo():
 
 if __name__ == '__main__':
     # test_detect_keywords()
-    test_label_tweets()
-    test_count_tweets()
-    test_load_data_from_mongo()
+    # test_label_tweets()
+    # test_count_tweets()
+    # test_load_data_from_mongo()
+    test_count_topic_samples()
