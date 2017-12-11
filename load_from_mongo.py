@@ -11,8 +11,8 @@ from pymongo import MongoClient
 
 
 # mapping keywords to topic labels
-LABELS = {'AI': ['aaai17', 'aaai2017', 'ijcai2017'],
-          'NLP': ['naacl2016', 'acl2016berlin', 'acl2016', 'emnlp2016', 'lrec2016', 'eacl2017', 'acl2017', 'ijcnlp2017taipei', 'nlproc'],
+# 'AI': ['aaai17', 'aaai2017', 'ijcai2017'],
+LABELS = {'NLP': ['naacl2016', 'acl2016berlin', 'acl2016', 'emnlp2016', 'lrec2016', 'eacl2017', 'acl2017', 'ijcnlp2017taipei', 'nlproc'],
           'IR': ['sigir2016', 'recsys2016', 'ictir2016', 'sigir2017', 'ecir2017', 'ecir2016'],
           'SemanticWeb': ['iswc2016', 'iswc2017', 'eswc2016'],
           'WebScience': ['websci16', 'webscience16', 'wsdm2017', 'kdd2016','www2016ca', 'kddnews', 'cikm2016', 'www2017perth', 'www2017', 'icwe2017', 'cikm2017', 'icwsm', 'cultureanalytics2016'],
@@ -34,8 +34,7 @@ def count_tweets(db, collection):
 def count_topic_samples(db, collection, y_field):
     collection = connect_to_mongo(db, collection)
     for topic in LABELS.keys():
-        print topic
-        print collection.count({y_field: topic})
+        print topic, collection.count({y_field: topic})
 
 
 def test_cursor():
