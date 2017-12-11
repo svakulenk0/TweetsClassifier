@@ -5,7 +5,7 @@ svakulenko
 
 Load tweets from MongoDB and train Tweet2Vec NN model
 '''
-from load_from_mongo import load_data_from_mongo
+from load_from_mongo import load_data_from_mongo_balanced
 from train import split_dataset, train_model
 from inference import test_model
 
