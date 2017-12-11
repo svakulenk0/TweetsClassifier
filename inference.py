@@ -105,5 +105,13 @@ def test_infer():
     infer(X, y)
 
 
+def test_cs_topics():
+    # test generalization performance of the model
+    X = ["artificial intelligence", "natural language", "information retrieval", "semantic web"]
+    y = ["AI", "NLP", "IR", "SemanticWeb"]
+    infer(X, y)
+
+
 if __name__ == '__main__':
-    test_infer()
+    # test_infer()
+    test_cs_topics()
