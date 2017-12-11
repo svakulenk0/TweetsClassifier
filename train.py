@@ -182,6 +182,7 @@ def train(Xt, yt, Xv, yv, save_path,
     # Build dictionaries from training data
     chardict, charcount = build_dictionary(Xt)
     n_char = len(chardict.keys()) + 1
+    print n_char, "unique characters"
     save_dictionary(chardict, charcount, '%s/dict.pkl' % save_path)
     
     # params
@@ -191,6 +192,7 @@ def train(Xt, yt, Xv, yv, save_path,
     save_dictionary(labeldict, labelcount, '%s/label_dict.pkl' % save_path)
 
     n_classes = len(labeldict.keys())
+    print "#classes:", n_classes
 
     # classification params
     params['W_cl'] = theano.shared(np.random.normal(loc=0., scale=SCALE, size=(LDIM, n_classes)).astype('float32'), name='W_cl')
@@ -269,7 +271,7 @@ def train(Xt, yt, Xv, yv, save_path,
                 continue
 
         curr_cost = train(x,x_m,y)
-        train_cost += curr_cost*len(xr)
+        train_cost += curr_cost * len(xr)
         ud = time.time() - ud_start
 
         if np.isnan(curr_cost) or np.isinf(curr_cost):
@@ -306,7 +308,7 @@ def train(Xt, yt, Xv, yv, save_path,
                 preds.append(ranks[idx,:])
                 targs.append(y[idx])
 
-            validation_cost = precision(np.asarray(preds),targs,1)
+            validation_cost = precision(np.asarray(preds), targs, 1)
             regularization_cost = reg_val()
 
             if validation_cost > maxp:
@@ -327,6 +329,10 @@ def train(Xt, yt, Xv, yv, save_path,
         np.savez('%s/model_%d.npz' % (save_path,epoch),**saveparams)
         print("Done.")
 
+        # stopping criterion: reached maximum precision on the validation set
+        if validation_cost == 1.0:
+            break
+
     print("Finish. Total training time = {}".format(time.time()-start))
 
 
@@ -344,12 +350,16 @@ def test_split_dataset():
 
 def test_train():
     '''
-    Generate sample dataset and split it into 3 sets
+    Generate sample dataset for binary classification test and split it into 3 sets
     '''
-    X = ["test" for i in range(20)]
-    y = ["true" for i in range(20)]
+    # sample positive examples
+    X = ["test yes?"] * N_BATCH
+    y = ["yes"]  * N_BATCH
+    # sample negative examples
+    X.extend(["or no?"] * N_BATCH)
+    y.extend(["no"]  * N_BATCH)
     (X_train, y_train), (X_validate, y_validate), (X_test, y_test) = split_dataset(X, y)
-    train(X_train, y_train, X_validate, y_validate, save_path="./model")
+    train(X_train, y_train, X_validate, y_validate, save_path=MODEL_PATH)
 
 
 if __name__ == '__main__':
