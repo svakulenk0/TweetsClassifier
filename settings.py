@@ -12,7 +12,7 @@ CHAR_DIM = 500  # dimensionality of the character embeddings lookup
 # number of unique characters 128 US-ASCII + 1,920 UTF-8
 HDIM = 500  # size of the hidden layer
 LDIM = 5  # number of the unique output labels (categories)
-MAX_LENGTH = 280  # max sequence of characters length for the input layer
+MAX_LENGTH = 140  # max sequence of characters length for the input layer
 # Twitter limits 140/280
 
 # training parameters
