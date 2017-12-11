@@ -25,7 +25,25 @@ Train a classifier to recommend relevant tweets.
 
 ## Datasets
 
+* tweets with the Computer Science conference hashtags
 * [ArchiveTeam JSON Download of Twitter Stream 2017-02](https://archive.org/details/archiveteam-twitter-stream-2017-02)
+
+
+## Evaluation results
+
+It is important to provide input samples equally balanced between all the classes otherwised the results are skewed towards the most frequent classes.
+
+1. CS topics
+
+Dataset: 5 classes * 2,000 tweets each = 10,000 tweets in total
+Random guess: 0.2 uniform probability distribution
+Model: 0.234375
+
+2. ML vs NLP
+
+Dataset: 2 classes * 5,000 tweets each = 10,000 tweets in total
+Random guess: 0.5 uniform probability distribution
+Model: 
 
 
 ## References
