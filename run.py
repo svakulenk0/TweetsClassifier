@@ -6,7 +6,7 @@ svakulenko
 Load tweets from MongoDB and train Tweet2Vec NN model
 '''
 from load_from_mongo import load_data_from_mongo, NTWEETS
-from train import split_dataset, train
+from train import split_dataset, train_model
 
 
 X, y = load_data_from_mongo("communityTweets", "cs_conferences",
@@ -16,4 +16,4 @@ assert y
 print len(X), 'samples loaded'
 
 (X_train, y_train), (X_validate, y_validate), (X_test, y_test) = split_dataset(X, y)
-train(X_train, y_train, X_validate, y_validate, save_path="./model")
+train_model(X_train, y_train, X_validate, y_validate, save_path="./model")
