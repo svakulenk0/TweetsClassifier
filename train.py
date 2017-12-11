@@ -128,7 +128,7 @@ def prepare_data(seqs_x, chardict, n_chars=1000):
     """
     seqsX = []
     for text in seqs_x:
-        seqsX.append([chardict[c] for c in list(text)])
+        seqsX.append([chardict[c] if c in chardict else 0 for c in list(text)])
     seqs_x = seqsX
 
     lengths_x = [len(s) for s in seqs_x]
