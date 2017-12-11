@@ -49,6 +49,9 @@ def load_data_from_mongo(db, collection, x_field, y_field, limit):
     y = []
     collection = connect_to_mongo(db, collection)
     for doc in collection.find({y_field: {'$ne': None}}, limit=limit):
+        # skip out-of-dictionary topics
+        if doc[y_field] not in LABELS.keys():
+            continue
         X.append(doc[x_field])
         y.append(doc[y_field])
         # print(doc["text"])
