@@ -132,7 +132,7 @@ def test_count_tweets():
     count_tweets("communityTweets", "cs_conferences")
 
 
-def test_count_topic_samples(db, collection):
+def test_count_topic_samples():
     count_topic_samples("communityTweets", "cs_conferences")
 
 
