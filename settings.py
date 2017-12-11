@@ -8,11 +8,11 @@ based on Tweet2Vec implementation by bdhingra https://github.com/bdhingra/tweet2
 '''
 
 # network size
-CHAR_DIM = 500  # dimensionality of the character embeddings lookup
+CHAR_DIM = 700  # dimensionality of the character embeddings lookup
 # number of unique characters 128 US-ASCII + 1,920 UTF-8
-HDIM = 500  # size of the hidden layer
+HDIM = 700  # size of the hidden layer
 LDIM = 5  # number of the unique output labels (categories)
-MAX_LENGTH = 140  # max sequence of characters length for the input layer
+MAX_LENGTH = 280  # max sequence of characters length for the input layer
 # Twitter limits 140/280
 
 # training parameters
@@ -21,7 +21,7 @@ BIAS = False  # use bias
 NUM_EPOCHS = 30 # Number of epochs
 N_BATCH = 64  # Batch size
 LEARNING_RATE = 0.01
-MOMENTUM = 0.2
+MOMENTUM = 0.5
 REGULARIZATION = 0.0001
 SCHEDULE = True  # use schedule
 GRAD_CLIP = 5.  # gradient clipping for regularization
