@@ -43,8 +43,8 @@ def classify(tweet, t_mask, params, n_classes, n_chars):
     return lasagne.layers.get_output(l_dense)
 
 
-def infer(Xt, yt, model_path=MODEL_PATH):
-    # Load model
+def test_model(Xt, yt, model_path=MODEL_PATH):
+    # Load model and dictionaries
     print("Loading model params...")
     params = load_params('%s/best_model.npz' % model_path)
     print("Loading dictionaries...")
@@ -98,18 +98,18 @@ def infer(Xt, yt, model_path=MODEL_PATH):
     # print [labeldict.keys()[rank[0]] for rank in ranks]
 
 
-def test_infer():
+def test_test_model():
     # test generalization performance of the model
     X = ["hot", "hot and ", "ho", "cold"]
     y = ["hot", "hot", "hot", "cold"]
-    infer(X, y)
+    test_model(X, y)
 
 
 def test_cs_topics():
     # test generalization performance of the model
     X = ["artificial intelligence", "natural language", "information retrieval", "semantic web"]
     y = ["AI", "NLP", "IR", "SemanticWeb"]
-    infer(X, y)
+    test_model(X, y)
 
 
 if __name__ == '__main__':
