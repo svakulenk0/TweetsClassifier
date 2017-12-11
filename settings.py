@@ -11,7 +11,7 @@ based on Tweet2Vec implementation by bdhingra https://github.com/bdhingra/tweet2
 CHAR_DIM = 150  # dimensionality of the character embeddings lookup
 # 128 US-ASCII + 1,920 UTF-8
 HDIM = 100  # size of the hidden layer
-LDIM = 6  # number of the unique output labels (categories)
+LDIM = 5  # number of the unique output labels (categories)
 MAX_LENGTH = 280  # max sequence of characters length for the input layer
 # Twitter limits 140/280
 
@@ -20,7 +20,7 @@ SCALE = 0.1  # Initialization scale
 BIAS = False  # use bias
 NUM_EPOCHS = 30 # Number of epochs
 N_BATCH = 64  # Batch size
-LEARNING_RATE = 0.5
+LEARNING_RATE = 0.3
 MOMENTUM = 0.9
 REGULARIZATION = 0.0001
 SCHEDULE = True  # use schedule
