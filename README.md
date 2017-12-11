@@ -6,14 +6,14 @@
 Train a classifier to recommend relevant tweets.
 
 
-## Aproach
+## Approach
 
-* character-level neural network is based on [Tweet2Vec implementation](https://github.com/bdhingra/tweet2vec)
+* character-level neural network with bi-GRU architecture based on [Tweet2Vec implementation](https://github.com/bdhingra/tweet2vec)
 
 
 ## Run
 
-* Unit test: THEANO_FLAGS='floatX=float32' python train.py
+* Short test: THEANO_FLAGS='floatX=float32' python train.py
 
 * Train: THEANO_FLAGS='floatX=float32' python run.py
 
@@ -26,6 +26,7 @@ Train a classifier to recommend relevant tweets.
 ## Datasets
 
 * [ArchiveTeam JSON Download of Twitter Stream 2017-02](https://archive.org/details/archiveteam-twitter-stream-2017-02)
+
 
 ## References
 
