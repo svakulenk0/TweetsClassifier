@@ -43,7 +43,15 @@ Model: 0.234375
 
 Dataset: 2 classes * 5,000 tweets each = 10,000 tweets in total
 Random guess: 0.5 uniform probability distribution
-Model: 
+Model:
+
+3. CS vs random tweets
+
+Dataset: 2 classes * 30,000 tweets each = 60,000 tweets in total
+Random guess: 0.5 uniform probability distribution
+Model:
+
+1662 unique characters
 
 
 ## References
