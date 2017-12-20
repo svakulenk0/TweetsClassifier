@@ -84,12 +84,11 @@ def clean_tokens(tokens):
     new_tokens = []
     # iterate over tokens in the tweet
     for index, token in enumerate(tokens):
-
         token = token.lower()
-
         # remove (skip) urls, e.g. httpstcovM51N4tsWw
         if token[:4] == 'http':
             continue
+        new_tokens.append(token)
     return " ".join(new_tokens)
 
 
@@ -142,13 +141,13 @@ def clean_tweets(db, collection):
     for doc in collection.find():
         # the original text of the tweet post
         tweet = doc["text"]
-        print tweet
+        # print tweet
         # remove punctuation
         tweet = tweet.encode('utf-8').translate(None, string.punctuation)
         tokens = tweet.split()
-        print tokens
+        # print tokens
         clean_text = clean_tokens(tokens)
-        print clean_text
+        # print clean_text
         # save label and cleaned text string into MongoDB
         collection.update({"_id": doc["_id"]},
                           {"$set": {"clean_text": clean_text}}, upsert=False)
@@ -220,4 +219,3 @@ if __name__ == '__main__':
     # test_load_data_from_mongo()
     # test_count_topic_samples()
     clean_random_tweets()
-
