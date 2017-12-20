@@ -58,7 +58,7 @@ def load_data_from_mongo(db, collection, x_field, y_field, limit):
     return (X, y)
 
 
-def load_data_from_mongo_balanced(db, collection, x_field, y_field, limit):
+def load_labeled_data_from_mongo_balanced(db, collection, x_field, y_field, limit):
     X = []
     y = []
     collection = connect_to_mongo(db, collection)
@@ -66,6 +66,16 @@ def load_data_from_mongo_balanced(db, collection, x_field, y_field, limit):
         for doc in collection.find({y_field: topic}, limit=limit):
             X.append(doc[x_field])
             y.append(doc[y_field])
+    return (X, y)
+
+
+def load_data_from_mongo_balanced(db, collection, x_field, y_value, limit, lang="en"):
+    X = []
+    y = []
+    collection = connect_to_mongo(db, collection)
+    for doc in collection.find({"lang": lang}, limit=limit):
+        X.append(doc[x_field])
+        y.append(y_value)
     return (X, y)
 
 
