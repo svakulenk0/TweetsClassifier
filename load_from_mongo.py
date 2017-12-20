@@ -142,11 +142,13 @@ def clean_tweets(db, collection):
     for doc in collection.find():
         # the original text of the tweet post
         tweet = doc["text"]
+        print tweet
         # remove punctuation
         tweet = tweet.encode('utf-8').translate(None, string.punctuation)
         tokens = tweet.split()
-
+        print tokens
         clean_text = clean_tokens(tokens)
+        print clean_text
         # save label and cleaned text string into MongoDB
         collection.update({"_id": doc["_id"]},
                           {"$set": {"clean_text": clean_text}}, upsert=False)
