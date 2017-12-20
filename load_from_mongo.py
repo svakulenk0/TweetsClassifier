@@ -74,8 +74,9 @@ def load_data_from_mongo_balanced(db, collection, x_field, y_value, limit, lang=
     y = []
     collection = connect_to_mongo(db, collection)
     for doc in collection.find({"lang": lang}, limit=limit):
-        X.append(doc[x_field])
-        y.append(y_value)
+        if doc[x_field]:
+            X.append(doc[x_field])
+            y.append(y_value)
     return (X, y)
 
 
