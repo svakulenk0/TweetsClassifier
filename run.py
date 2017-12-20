@@ -32,5 +32,16 @@ def test_get_cs_tweets():
     print y[0]
 
 
+def test_get_random_tweets():
+    X, y = load_data_from_mongo_balanced("tweets", "sample_04_12_2017",
+                                         x_field="clean_text", y_value="random", limit=30000)
+    assert X
+    assert y
+    print len(X), 'samples loaded'
+    print X[0]
+    print y[0]
+
+
 if __name__ == '__main__':
     test_get_cs_tweets()
+    test_get_random_tweets()
