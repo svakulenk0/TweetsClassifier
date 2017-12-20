@@ -137,7 +137,10 @@ def label_tweets(db, collection, labels, limit):
         #     print(tokens)
 
 
-def test_label_tweets():
+def label_CS_tweets():
+    '''
+    produces labels and clean tweets
+    '''
     label_tweets("communityTweets", "cs_conferences", LABELS, NTWEETS)
 
 
@@ -169,7 +172,7 @@ def test_connect_to_mongo():
 
 if __name__ == '__main__':
     # test_detect_keywords()
-    # test_label_tweets()
+    label_CS_tweets()
     # test_count_tweets()
     # test_load_data_from_mongo()
     test_count_topic_samples()
