@@ -178,7 +178,7 @@ def train_model(Xt, yt, Xv, yv, save_path=MODEL_PATH,
     chardict, charcount = build_dictionary(Xt)
     n_char = len(chardict.keys()) + 1
     print n_char, "unique characters"
-    print chardict
+    # print chardict
     save_dictionary(chardict, charcount, '%s/dict.pkl' % save_path)
     
     # params
