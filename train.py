@@ -122,13 +122,13 @@ def schedule(lr):
     return lr
 
 
-def prepare_data(seqs_x, chardict, n_chars=1000):
+def prepare_data(seqs_x, chardict, n_chars=MAX_CHAR):
     """
-    Prepare the data for training - add masks
+    Prepare the data for training - add masks and remove infrequent characters
     """
     seqsX = []
     for text in seqs_x:
-        seqsX.append([chardict[c] if c in chardict else 0 for c in list(text)])
+        seqsX.append([chardict[c] if c in chardict and chardict[c] <= n_chars else 0 for c in list(text)])
     seqs_x = seqsX
 
     lengths_x = [len(s) for s in seqs_x]
@@ -178,6 +178,7 @@ def train_model(Xt, yt, Xv, yv, save_path=MODEL_PATH,
     chardict, charcount = build_dictionary(Xt)
     n_char = len(chardict.keys()) + 1
     print n_char, "unique characters"
+    print chardict
     save_dictionary(chardict, charcount, '%s/dict.pkl' % save_path)
     
     # params
@@ -348,10 +349,10 @@ def test_train_model():
     '''
     Sample dataset for binary classification test
     '''
-    X_train = ["hot and warm", "hot and ", "hot ", "cold and freezing", "cold and ", "cold anyways "]
+    X_train = ["hot and warm", "hot and ", "oh hot ", "im cold and freezing", "me cold", "cold anyways "]
     y_train = ["hot", "hot", "hot", "cold", "cold", "cold"]
 
-    X_validate = ["hot and nice", "cold and nice"]
+    X_validate = ["hot and nice", "not cold and nice"]
     y_validate = ["hot", "cold"]
     
     train_model(X_train, y_train, X_validate, y_validate, save_path=MODEL_PATH)

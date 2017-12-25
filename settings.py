@@ -9,7 +9,7 @@ based on Tweet2Vec implementation by bdhingra https://github.com/bdhingra/tweet2
 
 # network size
 CHAR_DIM = 500  # dimensionality of the character embeddings lookup
-# number of unique characters 128 US-ASCII + 1,920 UTF-8
+MAX_CHAR = 1000  # number of unique characters 128 US-ASCII + 1,920 UTF-8
 HDIM = 500  # size of the hidden layer
 LDIM = 2  # number of the unique output labels (categories)
 MAX_LENGTH = 280  # max sequence of characters length for the input layer
