@@ -49,10 +49,33 @@ Model:
 
 Dataset: 2 classes * 30,000 tweets each = 60,000 tweets in total
 Random guess: 0.5 uniform probability distribution
+# characters: 128
 
-1662 unique characters
+* Run 1
+
+split: 0.8 x 0.1 x 0.1
+
+learning rate: 0.3
+
 Epoch 12 Training Cost 0.00590342712402 Validation Precision 0.776462743791 Regularization Cost 3.82598352432 Max Precision 0.859375
+
 Test: 0.6875
+
+* Run 2
+
+split: 0.6 x 0.2 x 0.2
+
+learning rate: 0.3
+
+Epoch 11 Training Cost 0.00385822719998 Validation Precision 0.742083333333 Regularization Cost 3.74113941193 Max Precision 0.8125
+
+Test: 0.8125
+
+* Run 3
+
+split: 0.6 x 0.2 x 0.2
+
+learning rate: 0.1
 
 
 ## References
