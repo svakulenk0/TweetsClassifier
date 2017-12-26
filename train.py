@@ -142,7 +142,7 @@ def prepare_data(seqs_x, chardict, n_chars=MAX_CHAR):
     return np.expand_dims(x, axis=2), x_mask
 
 
-def split_dataset(X, y, train_size=0.6, test_size=0.2):
+def split_dataset(X, y, train_size=0.8, test_size=0.1):
     '''
     Split the dataset into training, validation and test sets evenly distributing the class labels samples
     http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
