@@ -5,6 +5,7 @@ svakulenko
 
 Pass tweets through the classifier and retweet
 '''
+import string
 import cPickle as pkl
 import numpy as np
 import theano
@@ -17,11 +18,7 @@ from inference import classify, load_params
 from settings import *
 from train import prepare_data
 from twitter_settings import *
-
-# set up Twitter connection
-auth_handler = OAuthHandler(APP_KEY, APP_SECRET)
-auth_handler.set_access_token(OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
-twitter_client = API(auth_handler)
+from load_from_mongo import clean_tokens
 
 
 class TweetClassifier(StreamListener):
@@ -30,7 +27,11 @@ class TweetClassifier(StreamListener):
     '''
 
     def __init__(self, model_path=MODEL_PATH, model_name='best_model.npz'):
-        self.load_pretrained_model(model_path)
+        self.load_pretrained_model(model_path, model_name)
+        # set up Twitter connection
+        self.auth_handler = OAuthHandler(APP_KEY, APP_SECRET)
+        self.auth_handler.set_access_token(OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
+        self.api = API(self.auth_handler)
 
     def load_pretrained_model(self, model_path, model_name):
         # Load model and dictionaries
@@ -75,6 +76,23 @@ class TweetClassifier(StreamListener):
             tweet_text = status.text
             tweet_id = status.id
             print(tweet_text)
+
+            # preprocess
+            # remove punctuation
+            tweet = tweet_text.encode('utf-8').translate(None, string.punctuation)
+            tokens = tweet.split()
+            # print tokens
+            clean_text = clean_tokens(tokens)
+            print clean_text
+
+            # classify
+            prediction = self.classify([tweet_text])
+            print prediction
+            # if job_tweet_prediction > 0.73:
+            #     print tweet_text
+            #     print job_tweet_prediction
+            #     # retweet
+            #     self.api.update_status(status='https://twitter.com/%s/status/%s' % (tweet['user']['screen_name'], tweet['id']))
             # retweet
             # twitter_client.retweet(id=tweet_id)
 
@@ -90,10 +108,10 @@ def stream_tweets():
     # start streaming
     while True:
         try:
-            stream = Stream(auth_handler, listener)
+            stream = Stream(listener.auth_handler, listener)
             print ('Listening...')
             # stream.filter(track=["#nlpproc"])
-            stream.sample()
+            stream.sample(languages=['en'])
         except Exception as e:
             # reconnect on exceptions
             print (e)
@@ -101,6 +119,7 @@ def stream_tweets():
 
 
 def test_classifier():
+    # classifier = TweetClassifier()
     classifier = TweetClassifier(model_name='best_model_81.npz')
     assert classifier.classify(["hot"]) == 1
 
