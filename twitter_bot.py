@@ -12,7 +12,7 @@ import theano
 import theano.tensor as T
 
 from tweepy.streaming import StreamListener
-from tweepy import Stream, API, OAuthHandler
+from tweepy import Stream, API, OAuthHandler, Cursor
 
 from inference import classify, load_params
 from settings import *
@@ -104,13 +104,17 @@ def stream_tweets():
     '''
     Connect to Twitter API and fetch relevant tweets from the stream
     '''
-    listener = TweetClassifier()
+    # get users from list
+    listener = TweetClassifier(model_name='best_model_81.npz')
+    # members = [member.id_str for member in Cursor(listener.api.list_members, MY_NAME, LIST).items()]
+
     # start streaming
     while True:
         try:
             stream = Stream(listener.auth_handler, listener)
             print ('Listening...')
             # stream.filter(track=["#nlpproc"])
+            # stream.filter(follow=members)
             stream.sample(languages=['en'])
         except Exception as e:
             # reconnect on exceptions
@@ -119,8 +123,8 @@ def stream_tweets():
 
 
 def test_classifier():
-    # classifier = TweetClassifier()
-    classifier = TweetClassifier(model_name='best_model_81.npz')
+    classifier = TweetClassifier()
+    # classifier = TweetClassifier(model_name='best_model_81.npz')
     assert classifier.classify(["hot"]) == 1
 
 
