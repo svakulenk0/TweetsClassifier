@@ -105,7 +105,7 @@ def stream_tweets():
     Connect to Twitter API and fetch relevant tweets from the stream
     '''
     # get users from list
-    listener = TweetClassifier(model_name='best_model_81.npz')
+    listener = TweetClassifier()
     # members = [member.id_str for member in Cursor(listener.api.list_members, MY_NAME, LIST).items()]
 
     # start streaming
