@@ -6,21 +6,13 @@ svakulenko
 Pass tweets through the classifier and retweet
 Loading the job offers classification model trained by Yoan Bachev
 '''
-import string
 import pickle
-
-import numpy as np
-import theano
-import theano.tensor as T
 
 from tweepy.streaming import StreamListener
 from tweepy import Stream, API, OAuthHandler, Cursor
 
-from inference import classify, load_params
 from settings import *
-from train import prepare_data
 from twitter_settings import *
-from load_from_mongo import clean_tokens
 
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
@@ -97,8 +89,6 @@ def stream_tweets():
 
 def test_classifier():
     classifier = TweetClassifier()
-    # classifier = TweetClassifier(model_name='best_model_81.npz')
-    assert classifier.classify(["hot"]) == 1
 
 
 if __name__ == '__main__':
