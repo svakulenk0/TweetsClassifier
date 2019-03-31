@@ -8,6 +8,8 @@ Loading the job offers classification model trained by Yoan Bachev
 '''
 import string
 import cPickle as pkl
+import pickle
+
 import numpy as np
 import theano
 import theano.tensor as T
