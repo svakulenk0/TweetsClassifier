@@ -63,8 +63,8 @@ class TweetClassifier(StreamListener):
             prediction = self.model.predict(dat, batch_size=64)[0,1]
 
             if prediction >0.4:
-                print tweet_text
-                print prediction
+                print (tweet_text)
+                print (prediction)
             #     # retweet
             #     self.api.update_status(status='https://twitter.com/%s/status/%s' % (tweet['user']['screen_name'], tweet['id']))
             # retweet
