@@ -37,7 +37,9 @@ class TweetClassifier(StreamListener):
         # Load model and dictionaries
         print("Loading pre-trained model...")
         self.tokenizer = Tokenizer(num_words=MAX_NB_WORDS)
-        self.model = pickle.load(open('%s/%s' % (model_path, model_name), 'rb'))
+        # load the model from disk
+        filename = 'x1.sav'
+        self.mdel = pickle.load(open(filename, 'rb'))
 
     def on_status(self, status):
         # ignore retweets
