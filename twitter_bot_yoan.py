@@ -53,7 +53,7 @@ class TweetClassifier(StreamListener):
             # classify
             prediction = self.model.predict(dat, batch_size=64)[0,1]
 
-            if prediction >0.4:
+            if prediction > 0.8:
                 print (tweet_text)
                 print (prediction)
             #     # retweet
