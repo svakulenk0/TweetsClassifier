@@ -44,7 +44,7 @@ class TweetClassifier(StreamListener):
         if not hasattr(status,'retweeted_status') and status.in_reply_to_status_id == None:
             tweet_text = status.text
             tweet_id = status.id
-            print(tweet_text)
+            # print(tweet_text)
 
             # preprocess
             sequences= self.tokenizer.texts_to_sequences([tweet_text])
