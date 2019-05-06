@@ -26,7 +26,7 @@ class TweetClassifier(StreamListener):
     Overrides Tweepy class for Twitter Streaming API
     '''
 
-    def __init__(self, model_path=MODEL_PATH, model_name='x1.sav'):
+    def __init__(self, model_path=MODEL_PATH, model_name='model.sav'):
         self.load_pretrained_model(model_path, model_name)
         # set up Twitter connection
         self.auth_handler = OAuthHandler(APP_KEY, APP_SECRET)
@@ -78,9 +78,9 @@ def stream_tweets():
         try:
             stream = Stream(listener.auth_handler, listener)
             print ('Listening...')
-            # stream.filter(track=["#nlpproc"])
+            stream.filter(track=['hiring', 'job', 'career'], languages=['en'])
             # stream.filter(follow=members)
-            stream.sample(languages=['en'])
+            # stream.sample(languages=['en'])
         except Exception as e:
             # reconnect on exceptions
             print (e)
