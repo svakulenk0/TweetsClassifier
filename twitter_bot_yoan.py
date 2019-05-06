@@ -14,7 +14,6 @@ from tweepy import Stream, API, OAuthHandler, Cursor
 from settings import *
 from twitter_settings import *
 
-from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 
 
@@ -36,7 +35,8 @@ class TweetClassifier(StreamListener):
     def load_pretrained_model(self, model_path, model_name):
         # Load model and dictionaries
         print("Loading pre-trained model...")
-        self.tokenizer = Tokenizer(num_words=MAX_NB_WORDS)
+        with open('./model/tokenizer.pickle', 'rb') as handle:
+            self.tokenizer = pickle.load(handle)
         self.model = pickle.load(open('%s/%s' % (model_path, model_name), 'rb'))
 
     def on_status(self, status):
@@ -71,15 +71,15 @@ def stream_tweets():
     '''
     # get users from list
     listener = TweetClassifier()
-    # members = [member.id_str for member in Cursor(listener.api.list_members, MY_NAME, LIST).items()]
+    members = [member.id_str for member in Cursor(listener.api.list_members, MY_NAME, LIST).items()]
 
     # start streaming
     while True:
         try:
             stream = Stream(listener.auth_handler, listener)
             print ('Listening...')
-            stream.filter(track=['hiring', 'job', 'career'], languages=['en'])
-            # stream.filter(follow=members)
+            # stream.filter(track=['hiring', 'job', 'career'], languages=['en'])
+            stream.filter(follow=members)
             # stream.sample(languages=['en'])
         except Exception as e:
             # reconnect on exceptions
