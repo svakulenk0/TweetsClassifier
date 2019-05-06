@@ -52,12 +52,14 @@ class TweetClassifier(StreamListener):
 
             # classify
             prediction = self.model.predict(dat, batch_size=64)[0,1]
-
+            # print (tweet_text)
+            # print (prediction)
+            
             if prediction > 0.8:
                 print (tweet_text)
                 print (prediction)
-            #     # retweet
-            #     self.api.update_status(status='https://twitter.com/%s/status/%s' % (tweet['user']['screen_name'], tweet['id']))
+                # retweet
+                self.api.update_status(status='https://twitter.com/%s/status/%s' % (status.user.screen_name, tweet_id))
             # retweet
             # twitter_client.retweet(id=tweet_id)
 
@@ -71,8 +73,9 @@ def stream_tweets():
     '''
     # get users from list
     listener = TweetClassifier()
+    print("Collecting list members")
     members = [member.id_str for member in Cursor(listener.api.list_members, MY_NAME, LIST).items()]
-
+    # print("Done. Collected %d list members"%len(members))
     # start streaming
     while True:
         try:
