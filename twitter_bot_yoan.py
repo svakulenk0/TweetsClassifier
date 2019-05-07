@@ -17,6 +17,7 @@ from twitter_settings import *
 from keras.preprocessing.sequence import pad_sequences
 
 
+THRESHOLD = 0.88
 MAX_NB_WORDS = 5000 # consider up to x most occuring words in dataset
 
 
@@ -55,7 +56,7 @@ class TweetClassifier(StreamListener):
             # print (tweet_text)
             # print (prediction)
             
-            if prediction > 0.8:
+            if prediction > THRESHOLD:
                 print (tweet_text)
                 print (prediction)
                 # retweet
@@ -75,7 +76,7 @@ def stream_tweets():
     listener = TweetClassifier()
     print("Collecting list members")
     members = [member.id_str for member in Cursor(listener.api.list_members, MY_NAME, LIST).items()]
-    # print("Done. Collected %d list members"%len(members))
+    print("Done. Collected %d list members"%len(members))
     # start streaming
     while True:
         try:
